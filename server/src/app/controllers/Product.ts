@@ -4,15 +4,23 @@ import Product from '@models/Product';
 
 class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const users = await Product.find();
+    const products = await Product.find();
 
-    return res.json(users);
+    return res.json(products);
   }
 
-  public async store(req: Request, res: Response): Promise<Response> {
-    const user = await Product.create(req.body);
+  public async store(req: Request | any, res: Response): Promise<Response> {
+    const product = await Product.create(req.body);
 
-    return res.json(user);
+    const ownerSocket = req.connected[req.query.code];
+
+    // verifica se o usuario esta online
+    if (ownerSocket) {
+      // para quem vai ser enviado
+      req.io.to(ownerSocket).emit('product', product);
+    }
+
+    return res.json(product);
   }
 }
 
