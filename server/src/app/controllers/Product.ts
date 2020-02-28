@@ -12,7 +12,9 @@ class UserController {
   public async store(req: Request | any, res: Response): Promise<Response> {
     const product = await Product.create(req.body);
 
-    const ownerSocket = req.connected[req.query.code];
+    console.log(req.connectedUsers);
+
+    const ownerSocket = req.connectedUsers[req.query.code];
 
     // verifica se o usuario esta online
     if (ownerSocket) {

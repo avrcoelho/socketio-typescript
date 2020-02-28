@@ -10,7 +10,7 @@ class App {
   public server: http.Server;
   public app: express.Application;
   private io: io.Server;
-  private connectedUsers: { [index: string]: any };
+  private connectedUsers: { [index: string]: any } = {};
 
   public constructor() {
     this.app = express();
@@ -30,6 +30,8 @@ class App {
       const { code } = socket.handshake.query;
 
       this.connectedUsers[code] = socket.id;
+
+      console.log(code);
 
       socket.on('disconnect', () => {
         delete this.connectedUsers[code];
@@ -60,4 +62,4 @@ class App {
   }
 }
 
-export default new App().app;
+export default new App().server;

@@ -37,11 +37,11 @@ const ListProducts: React.FC = () => {
     }
 
     getProducts();
-  });
+  }, []);
 
   useEffect(() => {
     socket.on('product', (notification: IProduct) => {
-      setproducts(value => [...products, notification]);
+      setproducts(value => [...value, notification]);
     });
   }, [socket]);
 
@@ -49,7 +49,7 @@ const ListProducts: React.FC = () => {
     <Container>
       <List>
         {products.map((product: IProduct) => (
-          <Item key={product._id}>{product._id}</Item>
+          <Item key={product._id}>{product.title}</Item>
         ))}
       </List>
     </Container>
