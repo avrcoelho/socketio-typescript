@@ -22,7 +22,7 @@ class App {
     this.routes();
   }
 
-  private socket() {
+  private socket(): void {
     this.io = io(this.server);
 
     // escuta os eventos que estão rolando dentro do io

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import socketio from 'socket.io-client';
 
 import api from '../../services/api';
 
@@ -11,6 +12,16 @@ interface IProduct {
 
 const ListProducts: React.FC = () => {
   const [products, setproducts] = useState<IProduct[]>([]);
+
+  const socket = useMemo(
+    () =>
+      socketio(process.env.REACT_APP_URL_API || 'http://localhost:3000', {
+        query: {
+          code: 1,
+        },
+      }),
+    [],
+  );
 
   useEffect(() => {
     async function getProducts() {
@@ -27,6 +38,12 @@ const ListProducts: React.FC = () => {
 
     getProducts();
   });
+
+  useEffect(() => {
+    socket.on('product', (notification: IProduct) => {
+      setproducts(value => [...products, notification]);
+    });
+  }, [socket]);
 
   return (
     <Container>
