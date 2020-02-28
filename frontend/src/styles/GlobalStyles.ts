@@ -1,7 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 
-import 'font-awesome/css/font-awesome.css';
-
 const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
@@ -10,7 +8,14 @@ const GlobalStyles = createGlobalStyle`
     outline: 0;
   }
   body {
-    background: #f5f5f5;
+    background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#2ec8f7),
+    to(#0a88f7)
+  );
+  background: linear-gradient(90deg, #2ec8f7, #0a88f7);
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     font-family: sans-serif;
