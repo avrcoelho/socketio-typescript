@@ -9,10 +9,8 @@ class UserController {
     return res.json(products);
   }
 
-  public async store(req: Request | any, res: Response): Promise<Response> {
+  public async store(req: Request, res: Response): Promise<Response> {
     const product = await Product.create(req.body);
-
-    console.log(req.connectedUsers);
 
     const ownerSocket = req.connectedUsers[req.query.code];
 

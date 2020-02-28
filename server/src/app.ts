@@ -43,7 +43,7 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
 
-    this.app.use((req: Request | any, res: Response, next: NextFunction) => {
+    this.app.use((req: Request, res: Response, next: NextFunction) => {
       req.io = this.io;
       req.connectedUsers = this.connectedUsers;
 
